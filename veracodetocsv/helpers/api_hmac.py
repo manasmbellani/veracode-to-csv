@@ -4,6 +4,7 @@ import configparser
 from hashlib import sha256
 import hmac
 import codecs
+import binascii
 
 
 class VeracodeHMACError(Exception):
@@ -37,7 +38,7 @@ def _get_timestamp():
 
 
 def _get_nonce():
-    return os.urandom(16).hex()
+    return binascii.hexlify(os.urandom(16)).decode()
 
 
 def _create_signature(api_secret, signing_data, timestamp, nonce):
